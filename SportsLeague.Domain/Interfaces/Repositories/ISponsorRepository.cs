@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SportsLeague.Domain.Entities;
 
-namespace SportsLeague.Domain.Interfaces.Repositories
+
+namespace SportsLeague.Domain.Interfaces.Repositories;
+
+
+public interface ISponsorRepository : IGenericRepository<Sponsor>
+
 {
-    internal interface ISponsorRepository
-    {
-    }
+
+    Task<bool> ExistsByNameAsync(string name);
+
 }
