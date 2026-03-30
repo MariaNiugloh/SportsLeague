@@ -2,7 +2,7 @@
 
 namespace SportsLeague.Domain.Entities
 {
-    public class Sponsor
+    public class Sponsor : AuditBase
     {
         public int Id { get; set; }
 
