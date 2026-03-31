@@ -46,6 +46,9 @@ builder.Services.AddScoped<IRefereeService, RefereeService>();
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 
 builder.Services.AddScoped<ISponsorRepository, SponsorRepository>();
+
+builder.Services.AddScoped<ISponsorService, SponsorService>();
+
 // ── AutoMapper ──
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
