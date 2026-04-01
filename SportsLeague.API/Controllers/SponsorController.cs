@@ -85,4 +85,42 @@ public class SponsorController : ControllerBase
             return NotFound(new { message = ex.Message });
         }
     }
+
+    [HttpPost("{id}/tournaments")]
+    public async Task<IActionResult> AddToTournament(int id, TournamentSponsorRequestDTO request)
+    {
+        try
+        {
+            await _sponsorService.AddSponsorToTournament(id, request.TournamentId, request.ContractAmount);
+            return StatusCode(201);
+        }
+        catch (Exception ex)
+        {
+            if (ex.Message.Contains("not found"))
+                return NotFound(new { message = ex.Message });
+
+            return Conflict(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("{id}/tournaments")]
+    public async Task<IActionResult> GetTournaments(int id)
+    {
+        var result = await _sponsorService.GetTournamentsBySponsorId(id);
+        return Ok(result);
+    }
+
+    [HttpDelete("{id}/tournaments/{tournamentId}")]
+    public async Task<IActionResult> RemoveFromTournament(int id, int tournamentId)
+    {
+        try
+        {
+            await _sponsorService.RemoveSponsorFromTournament(id, tournamentId);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+    }
 }
