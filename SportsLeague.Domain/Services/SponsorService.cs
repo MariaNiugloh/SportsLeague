@@ -33,6 +33,10 @@ public class SponsorService : ISponsorService
 
     public async Task<Sponsor> CreateAsync(Sponsor sponsor)
     {
+        
+        if (string.IsNullOrWhiteSpace(sponsor.ContactEmail) || !sponsor.ContactEmail.Contains("@"))
+            throw new Exception("Invalid email format");
+
         if (await _sponsorRepository.ExistsByNameAsync(sponsor.Name))
             throw new Exception("Sponsor name already exists");
 
@@ -45,6 +49,9 @@ public class SponsorService : ISponsorService
 
         if (existing == null)
             throw new Exception("Sponsor not found");
+
+        if (string.IsNullOrWhiteSpace(sponsor.ContactEmail) || !sponsor.ContactEmail.Contains("@"))
+            throw new Exception("Invalid email format");
 
         if (existing.Name != sponsor.Name &&
             await _sponsorRepository.ExistsByNameAsync(sponsor.Name))
